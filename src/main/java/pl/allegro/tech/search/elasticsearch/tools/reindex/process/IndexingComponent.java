@@ -45,6 +45,12 @@ public class IndexingComponent {
       if (hit.getFields().get("_routing") != null) {
         requestBuilder.setRouting(hit.getFields().get("_routing").value());
       }
+
+      //strip out storedd _source_.
+      if(source.containsKey("_id")){
+        source.remove("_id");
+      }
+
       requestBuilder.setSource(source);
       bulkRequest.add(requestBuilder);
     }
